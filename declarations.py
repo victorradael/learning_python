@@ -46,3 +46,33 @@ myDic = {'chave':1.2, 'chave2': 'string'}
 
 for (chave, valor) in myDic.items():
   print(valor)
+#=======While=====================
+x=0
+
+while x < 10:
+  print(x)
+  x += 1
+
+#=================================
+y = 0
+z = 0
+
+while y < 10 and z < 20:
+  print(y)
+  print(z)
+  y += 1
+  z += 2
+else:
+  print('Nao atendeu')
+
+#=================================
+i = 1
+lista = []
+while True:
+  lista += [i]
+  i += 1
+
+  if i > 10:
+    break
+
+print(lista)
