@@ -12,12 +12,13 @@ def display_board(board):
 # display_board([" "," "," "," "," ","X"," "," "," ", " "])
 
 def player_input():
-  market = '
-  while not (market == 'X' or market =="O"):
-    market = input('Player 1: Você quer ser X ou O?').upper()
+  marker = ' '
+  print(marker)
+  while not (marker == 'X' or marker =='O'):
+    marker = input('Player 1: Voce quer ser X ou O?').upper()
 
   if marker == 'X':
-    return ('X', "O")
+    return ('X', 'O')
   else:
     return ('O', 'X')
 
@@ -42,4 +43,80 @@ def choose_first():
       return 'Player 2'
   else:
       return 'Player 1'
-  pass
+
+def space_check(board, position):
+
+  return board[position] == ' '
+
+def full_board_check(board):
+  for i in range(0, 10):
+    if space_check(board, i):
+      return False
+  
+  return True
+
+def player_choice(board):
+  position = ' '
+
+  while position not in ' 1 2 3 4 5 6 7 8 9'.split() or not space_check(board, int(position)):
+    position = input('Escolha sua jogada (1-9)')
+  return int(position)
+
+def replay():
+
+  return input('Quer jogar novamente? "SIM" ou "NAO"').lower().startwith('s')
+
+
+print('Vamos Jogar Jogo da Velha!')
+
+while True:
+  #Definindo ojogo
+  board = [' '] * 10
+  player1_marker, player2_marker = player_input()
+  turn = choose_first()
+  print(turn+' comeca!')
+
+  game_on = True
+  while game_on:
+    #Vez do Player 1
+    if turn == 'Player 1':
+      display_board(board)
+      position = player_choice(board)
+      place_marker(board, player1_marker, position)
+    
+    #Checar vitoria
+    if win_check(board, player1_marker):
+      display_board(board)
+      print('Player 1 Venceu!')
+      game_on = False
+    else:
+      if full_board_check(board):
+        display_board(board)
+        print('Deu Velha!')
+        break
+      else:
+        turn = 'Player 2'
+
+      #Vez do Player 2
+    if turn == 'Player 2':
+      display_board(board)
+      position = player_choice(board)
+      place_marker(board, player1_marker, position)
+    
+    #Checar vitoria
+    if win_check(board, player2_marker):
+      display_board(board)
+      print('Player 2 Venceu!')
+      game_on = False
+    else:
+      if full_board_check(board):
+        display_board(board)
+        print('Deu Velha!')
+        break
+      else:
+        turn = 'Player 1'
+
+  if not replay():
+    break
+
+  
